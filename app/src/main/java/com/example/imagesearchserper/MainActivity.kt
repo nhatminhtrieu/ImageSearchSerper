@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import androidx.activity.ComponentActivity
+//import com.example.imagesearchserper.`object`.RetrofitInstance
+import com.example.imagesearchserper.utils.ApiCallBack
 
 class MainActivity : ComponentActivity() {
     private lateinit var query: String
@@ -16,6 +18,7 @@ class MainActivity : ComponentActivity() {
         searchField.setOnEditorActionListener { _, _, _ ->
             query = searchField.text.toString()
             Log.d("MainActivity", "Search query: $query")
+
             true
         }
 

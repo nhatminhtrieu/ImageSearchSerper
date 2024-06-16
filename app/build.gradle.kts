@@ -3,6 +3,8 @@ plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -44,6 +46,8 @@ android {
     }
     buildFeatures {
         compose = true
+        dataBinding = true
+        viewBinding = true
         buildConfig =
             true // https://medium.com/@darayve/how-to-safely-store-api-keys-in-android-project-a-straightforward-guide-22c7fffd95e7
     }
@@ -73,6 +77,9 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.play.services.location)
     implementation(platform(libs.firebase.bom))
+    implementation(libs.github.glide)
+    implementation(libs.androidx.cardview)
+    annotationProcessor(libs.compiler)
 //    implementation(project(":app"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

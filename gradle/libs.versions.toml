@@ -23,7 +23,6 @@ cardview = "1.0.0"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "githubGlide" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
-databinding-compiler = { module = "com.android.databinding:compiler", version.ref = "compiler" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 github-glide = { module = "com.github.bumptech.glide:glide", version.ref = "githubGlide" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

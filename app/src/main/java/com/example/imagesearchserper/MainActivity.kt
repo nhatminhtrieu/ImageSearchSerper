@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.EditText
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imagesearchserper.model.Image
 import com.example.imagesearchserper.view.ImageAdapter

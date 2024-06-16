@@ -1,5 +1,6 @@
 package com.example.imagesearchserper.view
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +22,9 @@ class ImageAdapter(private var images: List<Image>) : RecyclerView.Adapter<Image
 
     override fun getItemCount() = images.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateImages(newImages: List<Image>) {
         images = newImages
+        notifyDataSetChanged()
     }
 }

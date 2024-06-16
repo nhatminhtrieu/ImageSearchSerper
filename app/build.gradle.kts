@@ -79,6 +79,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.github.glide)
     implementation(libs.androidx.cardview)
+    implementation(libs.androidx.swiperefreshlayout)
     annotationProcessor(libs.compiler)
 //    implementation(project(":app"))
     testImplementation(libs.junit)

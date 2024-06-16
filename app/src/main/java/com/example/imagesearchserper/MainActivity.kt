@@ -1,6 +1,7 @@
 package com.example.imagesearchserper
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,7 +19,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         searchField = findViewById(R.id.searchFieldET)
-
+        /*
+        TODO: Remove the following dummy data and initialize the imagesList with an empty list
         val imagesList = listOf(
             Image(
                 title = "A Strategic Analysis of Apple Inc.",
@@ -105,6 +107,8 @@ class MainActivity : ComponentActivity() {
                 position = 6
             )
         )
+        */
+        var imagesList = listOf<Image>()
 
         // Initialize the RecyclerView and the ImageAdapter with an empty list
         val recyclerView: RecyclerView = findViewById(R.id.imageListRV)
@@ -116,11 +120,14 @@ class MainActivity : ComponentActivity() {
         imageViewModel.imagesLiveData.observe(this) { images ->
             // Update the adapter's data when the LiveData changes
             imageAdapter.updateImages(images)
+            imagesList = images
+            Log.d("Images", images.size.toString())
+            imageAdapter.notifyDataSetChanged()
         }
 
         searchField.setOnEditorActionListener { _, _, _ ->
             query = searchField.text.toString()
-//            searchImages(query)
+            searchImages(query)
             true
         }
     }

@@ -8,9 +8,10 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="16dp"
+        android:layout_marginBottom="16dp">
 
         <ImageView
             android:id="@+id/imageView"
@@ -18,7 +19,7 @@
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
             android:contentDescription="@{image.title}"
-            android:src="@{image.imageUrl}" />
+             />
 
     </androidx.cardview.widget.CardView>
 </layout>

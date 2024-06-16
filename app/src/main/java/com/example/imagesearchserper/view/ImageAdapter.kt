@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.imagesearchserper.R
 import com.example.imagesearchserper.model.Image
 
@@ -24,6 +26,12 @@ class ImageAdapter(private var images: List<Image>) : RecyclerView.Adapter<Image
         val image = images[position]
         Glide.with(holder.imageView.context)
             .load(image.imageUrl)
+            .apply(RequestOptions().override(600, 600).centerCrop())
+            .error(
+                Glide.with(holder.imageView.context)
+                    .load(R.drawable.baseline_error_24)
+                    .apply(RequestOptions().override(600, 600).centerCrop())
+            )
             .into(holder.imageView)
     }
 

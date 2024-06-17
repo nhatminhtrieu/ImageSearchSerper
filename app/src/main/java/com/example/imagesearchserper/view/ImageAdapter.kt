@@ -12,7 +12,7 @@ class ImageAdapter(private var images: List<Image>) : RecyclerView.Adapter<Image
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ImageItemBinding.inflate(inflater, parent, false)
-        return ImageViewHolder(binding)
+        return ImageViewHolder(binding, images)
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {

@@ -1,7 +1,9 @@
 package com.example.imagesearchserper.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Image(
     val title: String,
     val imageUrl: String,
@@ -15,4 +17,4 @@ data class Image(
     val link: String,
     val googleUrl: String,
     val position: Int
-) : Serializable
+) : Parcelable

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_for_images">Tìm kiếm hình ảnh</string>
+    <string name="open_source_page">Mở trang nguồn</string>
+    <string name="full_screen_image">Một ảnh toàn màn hình</string>
+    <string name="clear_cache">Xoá bộ nhớ cache</string>
+    <string name="change_language">Đổi ngôn ngữ</string>
+    <string name="back_to_main">Đi đến màn hình chính</string>
+    <string name="english">Tiếng Anh</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="choose_language">Chọn ngôn ngữ</string>
+    <string name="cache_clear_msg_success">Đã xoá bộ nhớ tạm</string>
+    <string name="cache_clear_msg_failure">Xoá bộ nhớ tạm không thành công</string>
+</resources>

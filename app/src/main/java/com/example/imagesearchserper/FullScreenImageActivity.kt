@@ -19,7 +19,7 @@ class FullScreenImageActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_full_screen_image)
 
-        images = intent.getSerializableExtra("images") as ArrayList<Image>
+        images = intent.getParcelableArrayListExtra<Image>("images") ?: emptyList()
         position = intent.getIntExtra("position", 0)
 
         val viewPager: ViewPager = findViewById(R.id.viewPager)

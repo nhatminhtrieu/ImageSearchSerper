@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
+<!--    https://stackoverflow.com/a/38762725    -->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchFieldET"
         android:layout_width="0dp"
@@ -15,7 +16,8 @@
         android:layout_marginEnd="16dp"
         android:autofillHints="An image search"
         android:searchIcon="@drawable/outline_search_24"
-        android:queryHint="@string/search_for_images"
+        app:queryHint="@string/search_for_images"
+        app:defaultQueryHint="@string/search_for_images"
         app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

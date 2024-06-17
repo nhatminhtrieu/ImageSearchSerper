@@ -15,7 +15,7 @@ class ImageViewHolder(private val binding: ImageItemBinding, private val images:
         itemView.setOnClickListener {
             val intent = Intent(it.context, FullScreenImageActivity::class.java)
             intent.putExtra("images", images as ArrayList<Image>)
-            intent.putExtra("position", adapterPosition)
+            intent.putExtra("position", getBindingAdapterPosition())
             it.context.startActivity(intent)
         }
     }

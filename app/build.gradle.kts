@@ -80,6 +80,7 @@ dependencies {
     implementation(libs.github.glide)
     implementation(libs.androidx.cardview)
     implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.material)
     annotationProcessor(libs.compiler)
 //    implementation(project(":app"))
     testImplementation(libs.junit)

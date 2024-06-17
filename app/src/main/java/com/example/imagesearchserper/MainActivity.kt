@@ -1,9 +1,8 @@
 package com.example.imagesearchserper
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.EditText
 import androidx.activity.ComponentActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imagesearchserper.model.Image
@@ -11,36 +10,55 @@ import com.example.imagesearchserper.view.ImageAdapter
 import com.example.imagesearchserper.viewModel.ImageViewModel
 
 class MainActivity : ComponentActivity() {
-    private lateinit var query: String
-    private lateinit var searchField: EditText
+    private var query: String? = null
+    private lateinit var searchField: SearchView
     private var imagesList: List<Image> = emptyList()
     private val imageViewModel = ImageViewModel()
+    private var isSearchInProgress = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         searchField = findViewById(R.id.searchFieldET)
 
-        // Initialize the RecyclerView and the ImageAdapter with an empty list
+        initializeRecyclerView()
+        initializeSearchView()
+    }
+
+    private fun initializeRecyclerView() {
         val recyclerView: RecyclerView = findViewById(R.id.imageListRV)
         val imageAdapter = ImageAdapter(imagesList)
         recyclerView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
         recyclerView.adapter = imageAdapter
 
-        // Observe the LiveData object in the ImageViewModel
         imageViewModel.imagesLiveData.observe(this) { images ->
             imageAdapter.updateImages(images)
             imagesList = images
-        }
-
-        searchField.setOnEditorActionListener { _, _, _ ->
-            query = searchField.text.toString()
-            searchImages(query)
-            true
+            isSearchInProgress = false
         }
     }
 
+    private fun initializeSearchView() {
+        searchField.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                this@MainActivity.query = query
+                if (query != null) {
+                    searchImages(query)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
+    }
+
     private fun searchImages(query: String) {
+        if (isSearchInProgress) {
+            return
+        }
+        isSearchInProgress = true
         imageViewModel.getImages(query)
     }
 }

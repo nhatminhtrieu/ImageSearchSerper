@@ -6,11 +6,11 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.imagesearchserper.FullScreenImageActivity
-import com.example.imagesearchserper.R
 import com.example.imagesearchserper.databinding.ImageItemBinding
 import com.example.imagesearchserper.model.Image
 
-class ImageViewHolder(private val binding: ImageItemBinding, private val images: List<Image>) : RecyclerView.ViewHolder(binding.root) {
+class ImageViewHolder(private val binding: ImageItemBinding, private val images: List<Image>) :
+    RecyclerView.ViewHolder(binding.root) {
     init {
         itemView.setOnClickListener {
             val intent = Intent(it.context, FullScreenImageActivity::class.java)

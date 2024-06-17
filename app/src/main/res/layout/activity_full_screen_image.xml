@@ -9,6 +9,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
+        android:contentDescription="@string/full_screen_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,8 +33,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/white"
+        android:textAllCaps="false"
         app:backgroundTint="@color/purple_700"
-        app:icon="@drawable/outline_search_24"
+        app:icon="@drawable/outline_link_24"
         app:iconPadding="8dp"
         app:iconTint="@color/white"
         app:layout_constraintStart_toStartOf="parent" />

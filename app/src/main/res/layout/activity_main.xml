@@ -7,22 +7,46 @@
     tools:context=".MainActivity">
 
 <!--    https://stackoverflow.com/a/38762725    -->
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchFieldET"
+    <LinearLayout
+        android:id="@+id/appbarLL"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:autofillHints="An image search"
-        android:searchIcon="@drawable/outline_search_24"
-        app:queryHint="@string/search_for_images"
-        app:defaultQueryHint="@string/search_for_images"
-        app:iconifiedByDefault="false"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:minHeight="48dp" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchFieldET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints="An image search"
+            android:searchIcon="@drawable/outline_search_24"
+            app:defaultQueryHint="@string/search_for_images"
+            app:iconifiedByDefault="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:minHeight="48dp"
+            app:queryHint="@string/search_for_images"
+            android:theme="@style/AppTheme"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/settingsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="16dp"
+            app:icon="@drawable/outline_settings_24"
+            app:iconGravity="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/imageListRV"
@@ -35,6 +59,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchFieldET" />
+        app:layout_constraintTop_toBottomOf="@+id/appbarLL" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -81,6 +81,8 @@ dependencies {
     implementation(libs.androidx.cardview)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.material)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.activity)
     annotationProcessor(libs.compiler)
 //    implementation(project(":app"))
     testImplementation(libs.junit)

@@ -1,6 +1,8 @@
 package com.example.imagesearchserper
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -8,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.imagesearchserper.model.Image
 import com.example.imagesearchserper.view.ImageAdapter
 import com.example.imagesearchserper.viewModel.ImageViewModel
+import com.google.android.material.button.MaterialButton
 
 class MainActivity : ComponentActivity() {
     private var query: String? = null
     private lateinit var searchField: SearchView
+    private lateinit var settingsButton: Button
     private var imagesList: List<Image> = emptyList()
     private val imageViewModel = ImageViewModel()
     private var isSearchInProgress = false
@@ -20,9 +24,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         searchField = findViewById(R.id.searchFieldET)
+        settingsButton = findViewById(R.id.settingsBtn)
 
         initializeRecyclerView()
         initializeSearchView()
+
+        settingsButton.setOnClickListener {
+            Intent(this, SettingsActivity::class.java).also {
+                startActivity(it)
+            }
+        }
     }
 
     private fun initializeRecyclerView() {

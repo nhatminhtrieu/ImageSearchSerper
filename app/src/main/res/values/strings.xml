@@ -1,8 +1,12 @@
 <resources>
-    <string name="app_name">ImageSearchSerper</string>
+    <string name="app_name" translatable="false">ImageSearchSerper</string>
     <string name="search_for_images">Search for images</string>
     <string name="open_source_page">Open source page</string>
     <string name="full_screen_image">A full screen image</string>
     <string name="clear_cache">Tap to clear cache</string>
     <string name="change_language">Tap to change language</string>
+    <string name="back_to_main">Tap to go to main activity</string>
+    <string name="english">English</string>
+    <string name="vietnamese">Vietnamese</string>
+    <string name="choose_language">Choose language</string>
 </resources>

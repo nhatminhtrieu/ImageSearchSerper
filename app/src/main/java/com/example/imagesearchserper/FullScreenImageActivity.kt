@@ -9,17 +9,19 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.imagesearchserper.model.Image
+import com.example.imagesearchserper.utils.LanguageUtil
 import com.example.imagesearchserper.view.ImagePagerAdapter
 
 class FullScreenImageActivity : ComponentActivity() {
     private lateinit var images: List<Image>
     private var position: Int = 0
+    private lateinit var language: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_full_screen_image)
-
-        images = intent.getParcelableArrayListExtra<Image>("images") ?: emptyList()
+        language = LanguageUtil.getAppLanguage(this)
+        images = intent.getParcelableArrayListExtra("images") ?: emptyList()
         position = intent.getIntExtra("position", 0)
 
         val viewPager: ViewPager = findViewById(R.id.viewPager)

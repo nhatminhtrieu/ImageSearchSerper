@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ImageSearchSerper</string>
     <string name="search_for_images">Search for images</string>
+    <string name="open_source_page">Open Source Page</string>
 </resources>

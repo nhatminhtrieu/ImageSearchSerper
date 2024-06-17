@@ -9,4 +9,6 @@
     <string name="english">English</string>
     <string name="vietnamese">Vietnamese</string>
     <string name="choose_language">Choose language</string>
+    <string name="cache_clear_msg_success">Cache cleared</string>
+    <string name="cache_clear_msg_failure">Failed to clear cache</string>
 </resources>

@@ -68,39 +68,43 @@ class SettingsActivity : AppCompatActivity() {
                 for (i in children.indices) {
                     val success = deleteDir(File(dir, children[i]))
                     if (!success) {
-                        Toast.makeText(this, "Failed to clear cache", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.cache_clear_msg_failure, Toast.LENGTH_SHORT).show()
                         return false
                     }
                 }
             }
-            Toast.makeText(this, "Cache cleared", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.cache_clear_msg_success, Toast.LENGTH_SHORT).show()
             return dir.delete()
         } else if (dir != null && dir.isFile) {
-            Toast.makeText(this, "Failed to clear cache", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.cache_clear_msg_failure, Toast.LENGTH_SHORT).show()
             return dir.delete()
         } else {
-            Toast.makeText(this, "Failed to clear cache", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.cache_clear_msg_failure, Toast.LENGTH_SHORT).show()
             return false
         }
     }
 
     private fun showChangeLanguageDialog() {
-    val listItems = arrayOf(getString(R.string.english), getString(R.string.vietnamese))
-    val mBuilder = AlertDialog.Builder(this@SettingsActivity)
-    mBuilder.setTitle(getString(R.string.choose_language))
-    mBuilder.setSingleChoiceItems(listItems, -1) { dialogInterface: DialogInterface, i: Int ->
-        if (i == 0) {
-            setLocale("en") // English
-            recreate()
-        } else if (i == 1) {
-            setLocale("vi") // Vietnamese
-            recreate()
+        val listItems = arrayOf(getString(R.string.english), getString(R.string.vietnamese))
+        val mBuilder = AlertDialog.Builder(this@SettingsActivity)
+        mBuilder.setTitle(getString(R.string.choose_language))
+
+        val currentLanguage = sharedPreferences.getString("App_lang", "en")
+        val checkedItem = if (currentLanguage == "en") 0 else 1
+
+        mBuilder.setSingleChoiceItems(listItems, checkedItem) { dialogInterface: DialogInterface, i: Int ->
+            if (i == 0) {
+                setLocale("en") // English
+                recreate()
+            } else if (i == 1) {
+                setLocale("vi") // Vietnamese
+                recreate()
+            }
+            dialogInterface.dismiss()
         }
-        dialogInterface.dismiss()
+        val mDialog = mBuilder.create()
+        mDialog.show()
     }
-    val mDialog = mBuilder.create()
-    mDialog.show()
-}
 
     private fun setLocale(lang: String) {
         val locale = if (lang == "en") Locale("en", "US") else Locale(lang)

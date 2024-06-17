@@ -9,4 +9,6 @@
     <string name="english">Tiếng Anh</string>
     <string name="vietnamese">Tiếng Việt</string>
     <string name="choose_language">Chọn ngôn ngữ</string>
+    <string name="cache_clear_msg_success">Đã xoá bộ nhớ tạm</string>
+    <string name="cache_clear_msg_failure">Xoá bộ nhớ tạm không thành công</string>
 </resources>

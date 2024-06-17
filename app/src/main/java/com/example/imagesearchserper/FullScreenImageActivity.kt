@@ -38,5 +38,19 @@ class FullScreenImageActivity : ComponentActivity() {
                 Toast.makeText(this, "Invalid URL: $url", Toast.LENGTH_SHORT).show()
             }
         }
+
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                // Not implemented
+            }
+
+            override fun onPageSelected(position: Int) {
+                openSourceButton.elevation = 0f
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                // Not implemented
+            }
+        })
     }
 }

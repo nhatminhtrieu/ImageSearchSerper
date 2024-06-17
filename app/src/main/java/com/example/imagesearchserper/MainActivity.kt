@@ -26,12 +26,25 @@ class MainActivity : ComponentActivity() {
     private var isSearchInProgress = false
     private lateinit var language: String
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("query", query)
+        outState.putParcelableArrayList("imagesList", ArrayList(imagesList))
+        outState.putBoolean("isSearchInProgress", isSearchInProgress)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         language = LanguageUtil.getAppLanguage(this)
         searchField = findViewById(R.id.searchFieldET)
         settingsButton = findViewById(R.id.settingsBtn)
+
+        if (savedInstanceState != null) {
+            query = savedInstanceState.getString("query")
+            imagesList = savedInstanceState.getParcelableArrayList("imagesList") ?: emptyList()
+            isSearchInProgress = savedInstanceState.getBoolean("isSearchInProgress")
+        }
 
         initializeRecyclerView()
         initializeSearchView()
@@ -43,7 +56,6 @@ class MainActivity : ComponentActivity() {
     }
 
     @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
-    // MainActivity.kt
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {

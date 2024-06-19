@@ -36,7 +36,7 @@ class ImageViewHolder(private val binding: ImageItemBinding, private val images:
         val height = if (image.thumbnailHeight < 600) 600 else image.thumbnailHeight
         Glide.with(binding.imageView.context)
             .load(image.imageUrl)
-            .apply(RequestOptions().override(width, height).centerCrop())
+            .apply(RequestOptions().override(width, height))
             .placeholder(CircularProgressDrawable(binding.imageView.context))
             .into(binding.imageView)
     }

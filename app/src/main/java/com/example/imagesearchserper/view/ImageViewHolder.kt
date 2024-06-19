@@ -1,6 +1,10 @@
 package com.example.imagesearchserper.view
 
+import android.app.Activity
 import android.content.Intent
+import android.view.View
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
@@ -16,11 +20,17 @@ class ImageViewHolder(private val binding: ImageItemBinding, private val images:
             val intent = Intent(it.context, FullScreenImageActivity::class.java)
             intent.putExtra("images", images as ArrayList<Image>)
             intent.putExtra("position", getBindingAdapterPosition())
-            it.context.startActivity(intent)
+
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                (it.context as Activity),
+                androidx.core.util.Pair.create(binding.imageView, ViewCompat.getTransitionName(binding.imageView)!!)            )
+
+            it.context.startActivity(intent, options.toBundle())
         }
     }
 
     fun bind(image: Image) {
+        ViewCompat.setTransitionName(binding.imageView, image.imageUrl)
         binding.image = image
         val width = if (image.thumbnailWidth < 600) 600 else image.thumbnailWidth
         val height = if (image.thumbnailHeight < 600) 600 else image.thumbnailHeight

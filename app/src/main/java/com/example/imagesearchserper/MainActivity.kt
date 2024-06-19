@@ -1,10 +1,10 @@
 package com.example.imagesearchserper
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.appcompat.widget.SearchView
@@ -14,7 +14,6 @@ import com.example.imagesearchserper.model.Image
 import com.example.imagesearchserper.utils.LanguageUtil
 import com.example.imagesearchserper.view.ImageAdapter
 import com.example.imagesearchserper.viewModel.ImageViewModel
-import com.google.android.material.button.MaterialButton
 import java.util.Locale
 
 class MainActivity : ComponentActivity() {
@@ -101,6 +100,11 @@ class MainActivity : ComponentActivity() {
                 if (query != null) {
                     searchImages(query)
                 }
+
+                // Hide keyboard after user presses enter
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(searchField.windowToken, 0)
+
                 return true
             }
 

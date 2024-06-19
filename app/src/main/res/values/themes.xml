@@ -17,6 +17,10 @@
         <!--this attribute is to change the theme of the normal FAB-->
         <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
 
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+
     </style>
     <!--changing the theme of the base application ends here-->
 

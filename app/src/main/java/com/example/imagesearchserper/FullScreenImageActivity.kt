@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.webkit.URLUtil
 import android.widget.Button
 import android.widget.Toast
@@ -17,6 +16,7 @@ import com.example.imagesearchserper.utils.LanguageUtil
 import com.example.imagesearchserper.view.ImagePagerAdapter
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 class FullScreenImageActivity : ComponentActivity() {
     private lateinit var images: List<Image>
     private var position: Int = 0
@@ -28,9 +28,6 @@ class FullScreenImageActivity : ComponentActivity() {
         setContentView(R.layout.activity_full_screen_image)
         language = LanguageUtil.getAppLanguage(this)
         images = intent.getParcelableArrayListExtra("imagesList") ?: emptyList()
-
-        Log.d("MainActivityABC-Fullscreen", "Size: ${images.size}")
-
         position = intent.getIntExtra("position", 0)
 
         val viewPager: ViewPager = findViewById(R.id.viewPager)

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import java.io.File
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 class SettingsActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {

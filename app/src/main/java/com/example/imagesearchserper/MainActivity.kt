@@ -19,6 +19,7 @@ import com.example.imagesearchserper.viewModel.ImageViewModel
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 class MainActivity : ComponentActivity() {
     private var query: String? = null
     private lateinit var searchField: SearchView

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import androidx.activity.ComponentActivity
@@ -14,6 +15,7 @@ import com.example.imagesearchserper.model.Image
 import com.example.imagesearchserper.utils.LanguageUtil
 import com.example.imagesearchserper.view.ImageAdapter
 import com.example.imagesearchserper.viewModel.ImageViewModel
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import java.util.Locale
 
 class MainActivity : ComponentActivity() {
@@ -112,6 +114,7 @@ class MainActivity : ComponentActivity() {
             }
             imagesList = images
             isSearchInProgress = false
+            findViewById<LinearProgressIndicator>(R.id.progressIndicator).visibility = View.GONE
         }
     }
 
@@ -149,6 +152,7 @@ class MainActivity : ComponentActivity() {
             return
         }
         isSearchInProgress = true
+        findViewById<LinearProgressIndicator>(R.id.progressIndicator).visibility = View.VISIBLE
         imageViewModel.getImages(query, currentPage)
     }
 }

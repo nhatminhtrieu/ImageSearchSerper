@@ -24,12 +24,14 @@ class MainActivity : ComponentActivity() {
     private val imageViewModel = ImageViewModel()
     private var isSearchInProgress = false
     private lateinit var language: String
+    private var currentPage = 1
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("query", query)
         outState.putParcelableArrayList("imagesList", ArrayList(imagesList))
         outState.putBoolean("isSearchInProgress", isSearchInProgress)
+        outState.putInt("currentPage", currentPage) // Save the current page state
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +45,7 @@ class MainActivity : ComponentActivity() {
             query = savedInstanceState.getString("query")
             imagesList = savedInstanceState.getParcelableArrayList("imagesList") ?: emptyList()
             isSearchInProgress = savedInstanceState.getBoolean("isSearchInProgress")
+            currentPage = savedInstanceState.getInt("currentPage") // Restore the current page state
         }
 
         initializeRecyclerView()
@@ -86,10 +89,36 @@ class MainActivity : ComponentActivity() {
         recyclerView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
         recyclerView.adapter = imageAdapter
 
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as GridLayoutManager
+                val totalItemCount = layoutManager.itemCount
+                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+
+                // Start loading more images when the user has scrolled to the last item of the list
+                if (!isSearchInProgress && lastVisibleItem == totalItemCount - 1) {
+                    currentPage++
+                    loadMoreImages()
+                }
+            }
+        })
+
         imageViewModel.imagesLiveData.observe(this) { images ->
-            imageAdapter.updateImages(images)
+            if (currentPage == 1) {
+                imageAdapter.updateImages(images)
+            } else {
+                imageAdapter.addImages(images)
+            }
             imagesList = images
             isSearchInProgress = false
+        }
+    }
+
+    private fun loadMoreImages() {
+        if (query != null) {
+            isSearchInProgress = true
+            imageViewModel.getImages(query!!, currentPage)
         }
     }
 
@@ -98,6 +127,7 @@ class MainActivity : ComponentActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 this@MainActivity.query = query
                 if (query != null) {
+                    currentPage = 1 // Reset the current page when a new search is initiated
                     searchImages(query)
                 }
 
@@ -119,6 +149,6 @@ class MainActivity : ComponentActivity() {
             return
         }
         isSearchInProgress = true
-        imageViewModel.getImages(query)
+        imageViewModel.getImages(query, currentPage)
     }
 }

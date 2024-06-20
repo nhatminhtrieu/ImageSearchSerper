@@ -27,4 +27,10 @@ class ImageAdapter(private var images: List<Image>) : RecyclerView.Adapter<Image
         images = newImages
         notifyDataSetChanged()
     }
+
+    fun addImages(newImages: List<Image>) {
+        val currentSize = images.size
+        images = images + newImages
+        notifyItemRangeInserted(currentSize, newImages.size)
+    }
 }

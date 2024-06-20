@@ -13,10 +13,11 @@ class ImageViewModel : ViewModel() {
     val imagesLiveData = MutableLiveData<List<Image>>()
     private val imageRepository = ImageRepository()
 
-    fun getImages(searchParameters: String) {
+    fun getImages(query: String, page: Int) {
         val queryMap = mapOf(
-            "q" to searchParameters,
+            "q" to query,
             "type" to "images",
+            "page" to page.toString(),
             "engine" to "google",
             "num" to "10"
         )

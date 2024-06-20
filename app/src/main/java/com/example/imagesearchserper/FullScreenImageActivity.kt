@@ -6,17 +6,14 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.ViewGroup
 import android.webkit.URLUtil
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.imagesearchserper.model.Image
 import com.example.imagesearchserper.utils.LanguageUtil
 import com.example.imagesearchserper.view.ImagePagerAdapter
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import java.util.Locale
 
 class FullScreenImageActivity : ComponentActivity() {

@@ -48,15 +48,6 @@
 
     <!--this style is the child of the shapeAppearanceOverlay attribute
         which in turn is the child of materialThemeOverlay-->
-    <style name="customExtendedFAB">
-
-        <!--for the extended FAB the cornerFamily is given the value as the cut-->
-        <item name="cornerFamily">cut</item>
-
-        <!--and the cornerSize makes the cut for all 4 corners of the FAB as 10dp-->
-        <item name="cornerSize">10dp</item>
-
-    </style>
 
     <!--Here no need of mentioning the parent-->
     <!--because this is already the child of the
@@ -118,14 +109,4 @@
     </style>
     <!--Changing the theme of the normal FAB completes here-->
 
-    <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="iconPadding">0dp</item>
-        <item name="iconTint">@color/black</item>
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetBottom">0dp</item>
-        <item name="android:paddingLeft">12dp</item>
-        <item name="android:paddingRight">12dp</item>
-        <item name="android:minWidth">48dp</item>
-        <item name="android:minHeight">48dp</item>
-    </style>
 </resources>

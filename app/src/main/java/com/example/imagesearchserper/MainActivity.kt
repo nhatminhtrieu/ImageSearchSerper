@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.imagesearchserper.model.Image
 import com.example.imagesearchserper.utils.LanguageUtil
 import com.example.imagesearchserper.view.ImageAdapter
-import com.example.imagesearchserper.view.ImagePagerAdapter
 import com.example.imagesearchserper.viewModel.ImageViewModel
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import java.util.Locale

@@ -62,27 +62,29 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun deleteDir(dir: File?): Boolean {
-        if (dir != null && dir.isDirectory) {
-            val children = dir.list()
-            if (children != null) {
-                for (i in children.indices) {
-                    val success = deleteDir(File(dir, children[i]))
-                    if (!success) {
-                        Toast.makeText(this, R.string.cache_clear_msg_failure, Toast.LENGTH_SHORT).show()
-                        return false
-                    }
+        val success: Boolean
+
+        fun recursiveDelete(file: File): Boolean {
+            if (file.isDirectory) {
+                file.listFiles()?.forEach {
+                    if (!recursiveDelete(it)) return false
                 }
             }
-            Toast.makeText(this, R.string.cache_clear_msg_success, Toast.LENGTH_SHORT).show()
-            return dir.delete()
-        } else if (dir != null && dir.isFile) {
-            Toast.makeText(this, R.string.cache_clear_msg_failure, Toast.LENGTH_SHORT).show()
-            return dir.delete()
-        } else {
-            Toast.makeText(this, R.string.cache_clear_msg_failure, Toast.LENGTH_SHORT).show()
-            return false
+            return file.delete()
         }
+
+        success = if (dir != null) {
+            recursiveDelete(dir)
+        } else {
+            false
+        }
+
+        val messageResId = if (success) R.string.cache_clear_msg_success else R.string.cache_clear_msg_failure
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show()
+
+        return success
     }
+
 
     private fun showChangeLanguageDialog() {
         val listItems = arrayOf(getString(R.string.english), getString(R.string.vietnamese))

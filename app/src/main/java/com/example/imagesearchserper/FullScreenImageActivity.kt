@@ -1,5 +1,6 @@
 package com.example.imagesearchserper
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -82,6 +83,7 @@ class FullScreenImageActivity : ComponentActivity() {
         }
     }
 
+    @SuppressLint("AppBundleLocaleChanges")
     private fun setLocale(lang: String) {
         val locale = if (lang == "en") Locale("en", "US") else Locale(lang)
         Locale.setDefault(locale)

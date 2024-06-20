@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.imagesearchserper.R
 import com.example.imagesearchserper.model.Image
 
-class ImagePagerAdapter(private val images: List<Image>, private val context: Context) :
+class ImagePagerAdapter(private var images: List<Image>, private val context: Context) :
     PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = LayoutInflater.from(context)

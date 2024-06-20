@@ -2,6 +2,7 @@ package com.example.imagesearchserper.view
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
@@ -13,12 +14,12 @@ import com.example.imagesearchserper.FullScreenImageActivity
 import com.example.imagesearchserper.databinding.ImageItemBinding
 import com.example.imagesearchserper.model.Image
 
-class ImageViewHolder(private val binding: ImageItemBinding, private val images: List<Image>) :
+class ImageViewHolder(private val binding: ImageItemBinding, private var images: List<Image>) :
     RecyclerView.ViewHolder(binding.root) {
     init {
         itemView.setOnClickListener {
             val intent = Intent(it.context, FullScreenImageActivity::class.java)
-            intent.putExtra("images", images as ArrayList<Image>)
+            intent.putExtra("imagesList", images as ArrayList<Image>)
             intent.putExtra("position", getBindingAdapterPosition())
 
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
@@ -39,5 +40,10 @@ class ImageViewHolder(private val binding: ImageItemBinding, private val images:
             .apply(RequestOptions().override(width, height))
             .placeholder(CircularProgressDrawable(binding.imageView.context))
             .into(binding.imageView)
+    }
+
+    fun updateImages(newImages: List<Image>) {
+        images = newImages
+        Log.d("MainActivityABC", "Images updated")
     }
 }

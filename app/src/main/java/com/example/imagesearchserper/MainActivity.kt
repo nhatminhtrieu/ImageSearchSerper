@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.imagesearchserper.model.Image
 import com.example.imagesearchserper.utils.LanguageUtil
 import com.example.imagesearchserper.view.ImageAdapter
+import com.example.imagesearchserper.view.ImagePagerAdapter
 import com.example.imagesearchserper.viewModel.ImageViewModel
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import java.util.Locale
@@ -101,6 +103,7 @@ class MainActivity : ComponentActivity() {
                 // Start loading more images when the user has scrolled to the last item of the list
                 if (!isSearchInProgress && lastVisibleItem == totalItemCount - 1) {
                     currentPage++
+                    findViewById<LinearProgressIndicator>(R.id.progressIndicator).visibility = View.VISIBLE
                     loadMoreImages()
                 }
             }
@@ -116,6 +119,8 @@ class MainActivity : ComponentActivity() {
             isSearchInProgress = false
             findViewById<LinearProgressIndicator>(R.id.progressIndicator).visibility = View.GONE
         }
+
+        Log.d("MainActivityABC-Main", "Size: ${imagesList.size}")
     }
 
     private fun loadMoreImages() {

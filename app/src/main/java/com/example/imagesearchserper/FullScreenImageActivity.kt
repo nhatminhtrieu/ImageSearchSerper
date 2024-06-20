@@ -22,17 +22,22 @@ import java.util.Locale
 class FullScreenImageActivity : ComponentActivity() {
     private lateinit var images: List<Image>
     private var position: Int = 0
+    private lateinit var imagePagerAdapter: ImagePagerAdapter
     private lateinit var language: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_full_screen_image)
         language = LanguageUtil.getAppLanguage(this)
-        images = intent.getParcelableArrayListExtra("images") ?: emptyList()
+        images = intent.getParcelableArrayListExtra("imagesList") ?: emptyList()
+
+        Log.d("MainActivityABC-Fullscreen", "Size: ${images.size}")
+
         position = intent.getIntExtra("position", 0)
-        
+
         val viewPager: ViewPager = findViewById(R.id.viewPager)
-        viewPager.adapter = ImagePagerAdapter(images, this)
+        imagePagerAdapter = ImagePagerAdapter(images, this)
+        viewPager.adapter = imagePagerAdapter
         viewPager.currentItem = position
 
         val openSourceButton: Button = findViewById(R.id.openSourceBtn)

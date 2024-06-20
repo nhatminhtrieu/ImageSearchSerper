@@ -1,10 +1,12 @@
 package com.example.imagesearchserper
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.appcompat.widget.SearchView
@@ -13,8 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.imagesearchserper.model.Image
 import com.example.imagesearchserper.utils.LanguageUtil
 import com.example.imagesearchserper.view.ImageAdapter
+import com.example.imagesearchserper.view.ImagePagerAdapter
 import com.example.imagesearchserper.viewModel.ImageViewModel
-import com.google.android.material.button.MaterialButton
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import java.util.Locale
 
 class MainActivity : ComponentActivity() {
@@ -25,12 +28,14 @@ class MainActivity : ComponentActivity() {
     private val imageViewModel = ImageViewModel()
     private var isSearchInProgress = false
     private lateinit var language: String
+    private var currentPage = 1
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("query", query)
         outState.putParcelableArrayList("imagesList", ArrayList(imagesList))
         outState.putBoolean("isSearchInProgress", isSearchInProgress)
+        outState.putInt("currentPage", currentPage) // Save the current page state
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +49,7 @@ class MainActivity : ComponentActivity() {
             query = savedInstanceState.getString("query")
             imagesList = savedInstanceState.getParcelableArrayList("imagesList") ?: emptyList()
             isSearchInProgress = savedInstanceState.getBoolean("isSearchInProgress")
+            currentPage = savedInstanceState.getInt("currentPage") // Restore the current page state
         }
 
         initializeRecyclerView()
@@ -87,10 +93,40 @@ class MainActivity : ComponentActivity() {
         recyclerView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
         recyclerView.adapter = imageAdapter
 
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as GridLayoutManager
+                val totalItemCount = layoutManager.itemCount
+                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+
+                // Start loading more images when the user has scrolled to the last item of the list
+                if (!isSearchInProgress && lastVisibleItem == totalItemCount - 1) {
+                    currentPage++
+                    findViewById<LinearProgressIndicator>(R.id.progressIndicator).visibility = View.VISIBLE
+                    loadMoreImages()
+                }
+            }
+        })
+
         imageViewModel.imagesLiveData.observe(this) { images ->
-            imageAdapter.updateImages(images)
+            if (currentPage == 1) {
+                imageAdapter.updateImages(images)
+            } else {
+                imageAdapter.addImages(images)
+            }
             imagesList = images
             isSearchInProgress = false
+            findViewById<LinearProgressIndicator>(R.id.progressIndicator).visibility = View.GONE
+        }
+
+        Log.d("MainActivityABC-Main", "Size: ${imagesList.size}")
+    }
+
+    private fun loadMoreImages() {
+        if (query != null) {
+            isSearchInProgress = true
+            imageViewModel.getImages(query!!, currentPage)
         }
     }
 
@@ -99,8 +135,14 @@ class MainActivity : ComponentActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 this@MainActivity.query = query
                 if (query != null) {
+                    currentPage = 1 // Reset the current page when a new search is initiated
                     searchImages(query)
                 }
+
+                // Hide keyboard after user presses enter
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(searchField.windowToken, 0)
+
                 return true
             }
 
@@ -115,6 +157,7 @@ class MainActivity : ComponentActivity() {
             return
         }
         isSearchInProgress = true
-        imageViewModel.getImages(query)
+        findViewById<LinearProgressIndicator>(R.id.progressIndicator).visibility = View.VISIBLE
+        imageViewModel.getImages(query, currentPage)
     }
 }
